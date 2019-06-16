@@ -177,23 +177,24 @@ int main()
 			}
 		}
 
+		// if the vertix has two free "neighbours"
 		if (neightbour_cout == 2) 
 		{
 			temp_neighbour = visited.front();
 			visited.pop();
 			last_neighbour = visited.back(); 
 			
-			if (temp_neighbour.y == start_pnt.y)
+			if (temp_neighbour.y == start_pnt.y) //	check if the column if free
 			{
 				if (grid[ROW-1][start_pnt.y] == 0)
 				{
-
 					visited.pop();
-					visited.push(temp_neighbour);
+					visited.push(temp_neighbour);	// remove the last vertix and add the previous one 
 				}
 			}
 			else
 			{
+				// choose the path if the goal cannot be reach directly 
 				if (abs(temp_neighbour.y - goal_pnt.y) < abs(last_neighbour.y - goal_pnt.y))
 				{
 					visited.pop();
