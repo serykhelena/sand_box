@@ -84,21 +84,22 @@ def get( obj, namespace, var ):
 				namespace = find_item( obj, namespace )['parent']
 				return get( obj, namespace, var)
 
-with open('nsp_task.txt') as file:
-	for line in file:
-		cmd, nsp, var = line.split()
+if __name__ == '__main__':
+	with open('nsp_task.txt') as file:
+		for line in file:
+			cmd, nsp, var = line.split()
 
-		if cmd == 'add':
-			print( cmd, nsp, var )
-			add( namesp, nsp, var )
-		elif cmd == 'create':
-			print(f'{cmd} {nsp} {var}')
-			create( namesp, nsp, var )
-		elif cmd == 'get':
-			print( cmd, nsp, var )
-			print( get( namesp, nsp, var ) )
+			if cmd == 'add':
+				print( cmd, nsp, var )
+				add( namesp, nsp, var )
+			elif cmd == 'create':
+				print(f'{cmd} {nsp} {var}')
+				create( namesp, nsp, var )
+			elif cmd == 'get':
+				print( cmd, nsp, var )
+				print( get( namesp, nsp, var ) )
 
-print( json.dumps( namesp, sort_keys=True, indent=4, default=set_default ) )
+	print( json.dumps( namesp, sort_keys=True, indent=4, default=set_default ) )
 
 
 
