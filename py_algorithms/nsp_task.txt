@@ -1,0 +1,11 @@
+create foo global
+create bar foo
+create barz bar
+create bary barz
+add bar b
+create zoo bar
+create zoo2 zoo
+create zoo3 zoo2
+add bary b
+create doo zoo
+get zoo b
