@@ -86,6 +86,9 @@ void lldEncoderInit( void )
 
     extSetChannelMode( &EXTD1, 5, &base_conf );
 
+    palSetLineMode( ENCODER_GREEN_LINE, PAL_MODE_INPUT_PULLUP );
+    palSetLineMode( ENCODER_WHITE_LINE, PAL_MODE_INPUT_PULLUP );
+
     /* Set initialization flag */
     isInitialized = true;
 }
