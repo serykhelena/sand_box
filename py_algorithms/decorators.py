@@ -1,6 +1,5 @@
 import functools 
 
-
 def my_decorator(func_to_decor):
 
     def wrapper_for_origin_func():
@@ -22,7 +21,7 @@ def bread(func):
     def wrapper():
         print()
         func()
-        print("<\______/>")
+        print(r"<\______/>")
     return wrapper 
 
 def ingredients(func):
@@ -141,6 +140,21 @@ def foo2():
     print("foo2")
 
 
+def mydecorator(msg):
+    def decorated(f):
+        def wrapper(*args, **kwargs):
+            print(f"The messgae is {msg}")
+            print("Inside of the decorator BEFORE")
+            print(msg)
+            f(*args, **kwargs)
+            print("Inside of the decorator AFTER")
+        return wrapper 
+    return decorated 
+
+@mydecorator(msg="Hello")
+def print_my_name(name):
+    print(name)
+
 
 if __name__ == '__main__':
     lonely_function = my_decorator(lonely_function)
@@ -171,3 +185,5 @@ if __name__ == '__main__':
 
     print(foo.__name__)
     print(foo2.__name__)
+
+    print_my_name('Bob')
