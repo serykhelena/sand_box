@@ -27,7 +27,7 @@ def quick_sort_eat_memory(data):
 			else:
 				mid.append(d)
 
-		return quick_sort(left) + mid + quick_sort(right)
+		return quick_sort_eat_memory(left) + mid + quick_sort_eat_memory(right)
 
 	
 def quick_sort_economy(data, low, high):
@@ -51,7 +51,7 @@ def quick_sort_economy(data, low, high):
 				j -= 1
 				quick_sort_economy(data, low, j)
 				quick_sort_economy(data, i, high)
-
+	
 
 def runner():
 	start = time.time()
@@ -59,7 +59,7 @@ def runner():
 	rand_list = random.sample(range(10), 5)
 	print(f"The initial data: {rand_list}")
 
-	result = quick_sort_economy(rand_list, 0, len(rand_list)-1)
+	quick_sort_economy(rand_list, 0, len(rand_list)-1)
 	print(f"The result data: {rand_list}")
 
 	end = time.time()
