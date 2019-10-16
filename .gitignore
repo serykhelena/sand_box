@@ -1,0 +1,4 @@
+*.exe
+*.so
+/cpp_algorithms/virtual
+/cpp_algorithms/smart_ptrs
