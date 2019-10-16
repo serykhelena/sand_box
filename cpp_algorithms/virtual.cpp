@@ -98,6 +98,11 @@ public:
         cout << "Temp created" << endl; 
     }    
 
+    Temp(int c)
+    {
+        counter = c; 
+    }
+
     ~Temp()
     {
         cout << "Temp determinated" << endl; 
@@ -105,8 +110,39 @@ public:
 
 };
 
+class Base
+{
+public:
+    void say()
+    {
+        cout << "Base is speaking" << endl; 
+    }
+};
+
+class BChild_1: public Base
+{
+public:
+    void say()
+    {
+        cout << "Child 1 is speaking" << endl; 
+    }
+};
+
 int main()
 {
+    Temp t = Temp(1); 
+    Temp t1(1); 
+/*************************************/
+    /* virtual is needed! */
+    Base b; 
+    Base *b_ptr; 
+    b_ptr -> say();
+    BChild_1 b1; 
+    b_ptr = &b1;
+    b_ptr -> say();
+
+/************************************/
+
     Animal a; 
     Animal *a_ptr; 
 
