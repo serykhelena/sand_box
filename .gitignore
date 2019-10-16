@@ -2,3 +2,4 @@
 *.so
 /cpp_algorithms/virtual
 /cpp_algorithms/smart_ptrs
+/cpp_algorithms/reverse_string
