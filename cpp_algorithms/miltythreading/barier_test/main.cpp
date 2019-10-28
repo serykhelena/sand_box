@@ -26,7 +26,7 @@ public:
         // fetch_add = RMW-operation (read-modify-write)
         // read atomic variable, add with argument and
         // write new value to atomic variable
-        if( threadsWaiting.fetch_add(1) >= threadCounter - 1)
+        if( threadsWaiting.fetch_add(1) == threadCounter - 1)
         {
             // if all thread at the barrier
             // tell everybody that they needn't to wait anymore
@@ -53,33 +53,37 @@ class BarrierDemo
 {
 private:
     uint32_t id;
-    shared_ptr<thread> myThread;
+    thread myThread;
+    bool isProcessed;
 public:
-    BarrierDemo( uint32_t i ) : id(i) {}
+    BarrierDemo( uint32_t i ) : id(i), isProcessed(false) {}
 
     void start()
     {
-        cout << "Thread " << id << " start" << endl;
-        myThread = shared_ptr<thread>(new thread(&BarrierDemo::run, this));
-        cout << "Thread " << id << " created" << endl;
+        myThread = thread(&BarrierDemo::run, this);
+        isProcessed = true;
     }
 
     void wait()
     {
-        myThread -> join();
+        myThread.join();
     }
 
     void run()
     {
-        cout << "Thread " << id << " runs before barrier" << endl;
-        myBarrier -> wait();
-        cout << "Thread " << id << " runs after barrier" << endl;
+        if( isProcessed )
+        {
+            cout << "Thread " << id /*<< " : " << myThread.get_id()*/ << " runs before barrier" << endl;
+            myBarrier -> wait();
+            cout << "Thread " << id /*<< " : " << myThread.get_id()*/ << " runs after barrier" << endl;
+        }
     }
 };
 
 int main()
 {
     uint32_t threads;
+    cout << "Enter number of threads: ";
     cin >> threads;
     myBarrier = shared_ptr<Barrier>(new Barrier(threads));
     shared_ptr<vector<BarrierDemo>> processing = make_shared<vector<BarrierDemo>>();
@@ -94,26 +98,6 @@ int main()
     {
         processing -> at(i).wait();
     }
-
-
-
-//    shared_ptr<BarrierDemo> bar_demos = make_shared<BarrierDemo>(new (sizeof(BarrierDemo) * threads));
-//    BarrierDemo* bar_demos = static_cast<BarrierDemo*>(::operator new(sizeof(BarrierDemo) * threads));
-
-
-
-//    for( int32_t i = 0; i < threads; i++ )
-//    {
-//        new (&bar_demos[i])BarrierDemo(i);
-//        bar_demos[i].start();
-//    }
-//    for( int32_t i = 0; i < threads; i++ )
-//    {
-//        bar_demos[i].wait();
-//    }
-
-//    ::operator delete(bar_demos);
-//    delete myBarrier;
 
     return 0;
 }
