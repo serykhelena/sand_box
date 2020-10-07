@@ -16,8 +16,7 @@ def fib(pos):
         return 0
     if pos in (1, 2):
         return 1
-    else:
-        return fib(pos - 1) + fib(pos - 2)
+    return fib(pos - 1) + fib(pos - 2)
 
 
 def print_fib(num):
@@ -26,4 +25,5 @@ def print_fib(num):
 
 if __name__ == "__main__":
     print(even_fib(4))
+    print_fib(4)
 
