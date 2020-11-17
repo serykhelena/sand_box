@@ -175,7 +175,7 @@ class Solver:
         # array of basket values 
         basket_prod_number = np.array(list(self.basket.values()))
         # Restriction 
-        # number of products in bundles must be less or equal with products number in basket 
+        # number of products in bundles must be less or equal than products number in basket 
         for p in range(len(self.items)):
             model += lpSum([coded_bundle_dict[b][p] * x_vars[b] for b in bundle_lp]) <= basket_prod_number[p]
         # get the solution 
