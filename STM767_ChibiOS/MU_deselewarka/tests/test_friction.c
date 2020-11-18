@@ -8,8 +8,18 @@ static void autoMove( float ref_speed )
 	float speed_deadzone = 0.05
 
 	driveSteerCSSetPosition( 0 ); // keep steering wheels in the center 
-	// while( )
-	driveSpeedCSSetSpeed( ref_speed );
+    odometrySpeedValue_t test_speed_lpf = lldOdometryGetLPFObjSpeedMPS( );
+
+    while( test_speed_lpf  == abs(ref_speed - speed_deadzone) )
+    {
+        driveSpeedCSSetSpeed( ref_speed );
+        test_speed_lpf = lldOdometryGetLPFObjSpeedMPS( );
+    }
+
+    // TODO: make the hardest break! 
+    // stop 
+    driveSpeedCSSetSpeed( 0 );
+
 }
 
 void testFrictionRoutine( void )
@@ -18,6 +28,7 @@ void testFrictionRoutine( void )
 	driverCSInit( NORMALPRIO );
     driverIsEnableCS(true);
 
+    odometrySpeedValue_t test_speed_lpf     = 0;
     float                test_speed_ref     = 0.3;
 
 
